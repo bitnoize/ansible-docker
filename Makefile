@@ -1,20 +1,18 @@
 
 IMAGENAME := bitnoize/ansible
 
-.PHONY: help build rebuild
+.PHONY: help build rebuild push pull
 
 .DEFAULT_GOAL := help
 
 help:
-	@echo "Makefile commands: build rebuild"
+	@echo "Makefile commands: build rebuild push pull"
 
 #build: export BUILD_OPTS := ...
-#build: export PUSH_OPTS := ...
-build: .build-6.2.0-bullseye .push-6.2.0-bullseye
+build: .build-6.2.0-bullseye
 
 rebuild: export BUILD_OPTS := --pull --no-cache
-#rebuild: export PUSH_OPTS := ...
-rebuild: .build-6.2.0-bullseye .push-6.2.0-bullseye
+rebuild: .build-6.2.0-bullseye
 
 .build-6.2.0-bullseye:
 	docker build $(BUILD_OPTS) \
@@ -25,8 +23,19 @@ rebuild: .build-6.2.0-bullseye .push-6.2.0-bullseye
 		-f Dockerfile.bullseye \
 		.
 
+#push: export PUSH_OPTS := ...
+push: .push-6.2.0-bullseye
+
 .push-6.2.0-bullseye:
 	docker push $(PUSH_OPTS) "$(IMAGENAME):6.2.0-bullseye"
 	docker push $(PUSH_OPTS) "$(IMAGENAME):6-bullseye"
 	docker push $(PUSH_OPTS) "$(IMAGENAME):latest"
+
+#pull: export PULL_OPTS := ...
+pull: .pull-6.2.0-bullseye
+
+.pull-6.2.0-bullseye:
+	docker pull $(PULL_OPTS) "$(IMAGENAME):6.2.0-bullseye"
+	docker pull $(PULL_OPTS) "$(IMAGENAME):6-bullseye"
+	docker pull $(PULL_OPTS) "$(IMAGENAME):latest"
 

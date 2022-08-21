@@ -34,5 +34,5 @@ RUN set -eux; \
 COPY docker-entrypoint.sh /sbin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-CMD ["bash"]
+CMD ["ansible"]
 
