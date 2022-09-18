@@ -3,17 +3,17 @@
 set -e
 
 if [ "$(id -u)" = "0" ]; then
-  if [ -n "$UID" ] && [ ! "$UID" = "$(id ansible -u)" ]; then
-    usermod -u "$UID" ansible
+  if [ -n "$UID" ] && [ ! "$UID" = "$(id devops -u)" ]; then
+    usermod -u "$UID" devops
   fi
 
-  if [ -n "$GID" ] && [ ! "$GID" = "$(id ansible -g)" ]; then
-    groupmod -g "$GID" ansible
+  if [ -n "$GID" ] && [ ! "$GID" = "$(id devops -g)" ]; then
+    groupmod -g "$GID" devops
   fi
 
-  chown ansible:ansible /home/ansible
+  chown devops:devops /home/devops
 
-  exec gosu ansible "$@"
+  exec gosu devops "$@"
 else
   exec "$@"
 fi
