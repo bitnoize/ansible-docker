@@ -2,7 +2,7 @@
 FROM bitnoize/debian:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG ANSIBLE_VERSION=6.3.0
+ARG ANSIBLE_VERSION=6.4.0
 
 RUN set -eux; \
     # Fake user
