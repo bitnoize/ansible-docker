@@ -3,17 +3,21 @@
 set -e
 
 if [ "$(id -u)" = "0" ]; then
-  if [ -n "$UID" ] && [ ! "$UID" = "$(id devops -u)" ]; then
-    usermod -u "$UID" devops
+  if [ -n "$UID" ] && [ ! "$UID" = "$(id ansible -u)" ]; then
+    usermod -u "$UID" ansible
   fi
 
-  if [ -n "$GID" ] && [ ! "$GID" = "$(id devops -g)" ]; then
-    groupmod -g "$GID" devops
+  if [ -n "$GID" ] && [ ! "$GID" = "$(id ansible -g)" ]; then
+    groupmod -g "$GID" ansible
   fi
 
-  chown devops:devops /home/devops
+  chown -R ansible:ansible /home/ansible
 
-  exec gosu devops "$@"
+  if [ -x "/lib/entrypoint.d" ]; then
+    run-parts -v --regex '.*sh$' /lib/entrypoint.d
+  fi
+
+  exec gosu ansible "$@"
 else
   exec "$@"
 fi
