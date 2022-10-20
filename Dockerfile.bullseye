@@ -9,10 +9,10 @@ ENV ANSIBLE_VERSION=${ANSIBLE_VERSION}
 RUN set -eux; \
     # Unprivileged user
     groupadd -g 1000 ansible; \
-    useradd -M -d /home/ansible -s /bin/bash -g 1000 -u 1000 ansible; \
+    useradd -M -d /var/lib/ansible -s /bin/bash -g 1000 -u 1000 ansible; \
     usermod -a -G tty,staff ansible; \
-    mkdir -m 0750 /home/ansible; \
-    chown ansible:ansible /home/ansible
+    mkdir -m 0750 /var/lib/ansible; \
+    chown ansible:ansible /var/lib/ansible
 
 COPY docker-entrypoint.sh /sbin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

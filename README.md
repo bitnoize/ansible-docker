@@ -1,5 +1,5 @@
-ansible-docker
---------------
+Ansible
+-------
 
-Dockerfile for Ansible projects.
+Base Dockerfile for Ansible playbooks.
 
