@@ -1,5 +1,5 @@
 
-IMAGENAME := bitnoize/ansible
+IMAGENAME := ghcr.io/bitnoize/ansible
 
 .PHONY: help build rebuild push pull
 
