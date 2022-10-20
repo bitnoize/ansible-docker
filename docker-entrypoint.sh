@@ -13,8 +13,8 @@ if [ "$(id -u)" = "0" ]; then
 
   chown -R ansible:ansible /home/ansible
 
-  if [ -x "/lib/entrypoint.d" ]; then
-    run-parts -v --regex '.*sh$' /lib/entrypoint.d
+  if [ -d "/lib/entrypoint" ]; then
+    run-parts -v --regex '.*sh$' /lib/entrypoint
   fi
 
   exec gosu ansible "$@"
