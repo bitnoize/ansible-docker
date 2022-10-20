@@ -1,5 +1,5 @@
 
-FROM bitnoize/debian:bullseye
+FROM ghcr.io/bitnoize/debian:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
 
