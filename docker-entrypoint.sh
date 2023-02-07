@@ -11,7 +11,7 @@ if [ "$(id -u)" = "0" ]; then
     groupmod -g "$GID" ansible
   fi
 
-  chown -R ansible:ansible /var/lib/ansible
+  chown ansible:ansible /var/lib/ansible
 
   if [ -d "/lib/entrypoint" ]; then
     run-parts -v --regex '.*sh$' /lib/entrypoint
