@@ -1,6 +1,8 @@
 
 FROM ghcr.io/bitnoize/debian:bullseye
 
+LABEL org.opencontainers.image.source=https://github.com/bitnoize/ansible-docker
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG ANSIBLE_VERSION=7.2.0
