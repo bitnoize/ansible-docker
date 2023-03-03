@@ -1,5 +1,5 @@
 Ansible
 -------
 
-Base Dockerfile for Ansible playbooks.
+Base Docker image for Ansible playbooks.
 
