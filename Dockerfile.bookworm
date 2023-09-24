@@ -1,6 +1,8 @@
 
 FROM ghcr.io/bitnoize/debian:bookworm
 
+LABEL org.opencontainers.image.source=https://github.com/bitnoize/ansible-docker
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG ANSIBLE_VERSION=8.4.0
