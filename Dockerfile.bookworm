@@ -1,11 +1,9 @@
 
-FROM ghcr.io/bitnoize/debian:bullseye
-
-LABEL org.opencontainers.image.source=https://github.com/bitnoize/ansible-docker
+FROM ghcr.io/bitnoize/debian:bookworm
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG ANSIBLE_VERSION=7.3.0
+ARG ANSIBLE_VERSION=8.4.0
 ENV ANSIBLE_VERSION=${ANSIBLE_VERSION}
 
 RUN set -eux; \
@@ -29,7 +27,7 @@ RUN set -eux; \
         echo "Pin-Priority: 1000"; \
     } | tee /etc/apt/preferences.d/20docker; \
     { \
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bullseye stable"; \
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bookworm stable"; \
     } | tee /etc/apt/sources.list.d/docker.list; \
     # Debian packages
     apt-get update -q; \
@@ -54,14 +52,14 @@ RUN set -eux; \
         /usr/share/man/* \
         /var/lib/apt/lists/*
 
-RUN set -eux; \
-    # Python packages
-    pip3 install --upgrade pip; \
-    pip3 install cryptography docker \
-#       "docker-compose>=1.7.0,<2.0.0" \
-        "ansible==${ANSIBLE_VERSION}"; \
-    # Smoke tests
-    ansible --version
+#RUN set -eux; \
+#    # Python packages
+#    pip3 install --upgrade pip; \
+#    pip3 install cryptography docker \
+##       "docker-compose>=1.7.0,<2.0.0" \
+#        "ansible==${ANSIBLE_VERSION}"; \
+#    # Smoke tests
+#    ansible --version
 
-CMD ["ansible"]
+CMD ["/bin/bash"]
 
