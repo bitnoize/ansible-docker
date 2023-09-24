@@ -20,22 +20,9 @@ COPY docker-entrypoint.sh /sbin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 RUN set -eux; \
-    # Docker APT
-    wget -q -O- "https://download.docker.com/linux/debian/gpg" | \
-        gpg --dearmor > /usr/share/keyrings/docker-archive-keyring.gpg; \
-    { \
-        echo "Package: *"; \
-        echo "Pin: release o=Docker"; \
-        echo "Pin-Priority: 1000"; \
-    } | tee /etc/apt/preferences.d/20docker; \
-    { \
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bookworm stable"; \
-    } | tee /etc/apt/sources.list.d/docker.list; \
     # Debian packages
     apt-get update -q; \
     apt-get install -yq \
-        docker-ce-cli \
-        docker-compose-plugin \
         build-essential \
         git \
         libffi-dev \
@@ -52,14 +39,14 @@ RUN set -eux; \
         /usr/share/doc/* \
         /usr/share/info/* \
         /usr/share/man/* \
-        /var/lib/apt/lists/*
+        /var/lib/apt/lists/*; \
+    # Smoke tests
+    python3 --version
 
 #RUN set -eux; \
 #    # Python packages
 #    pip3 install --upgrade pip; \
-#    pip3 install cryptography docker \
-##       "docker-compose>=1.7.0,<2.0.0" \
-#        "ansible==${ANSIBLE_VERSION}"; \
+#    pip3 install cryptography \
 #    # Smoke tests
 #    ansible --version
 
